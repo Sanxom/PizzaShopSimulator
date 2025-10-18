@@ -111,20 +111,19 @@ namespace PizzaShop.Inventory
                 Vector3 targetWorldPos = handPosition.position;
 
                 // Disable physics immediately
-                Rigidbody rb = heldItemVisual.GetComponent<Rigidbody>();
-                if (rb != null) rb.isKinematic = true;
+                if (heldItemVisual.TryGetComponent<Rigidbody>(out var rb)) rb.isKinematic = true;
 
-                Collider col = heldItemVisual.GetComponent<Collider>();
-                if (col != null) col.enabled = false;
+                if (heldItemVisual.TryGetComponent<Collider>(out var col)) col.enabled = false;
 
                 Vector3 startScale = worldObject.transform.lossyScale;
 
                 // Animate in world space, then parent
                 Sequence pickupSequence = DOTween.Sequence();
-                pickupSequence.Append(heldItemVisual.transform.DOMove(targetWorldPos, pickupDuration)/*.SetEase(Ease.OutQuad)*/);
-                pickupSequence.Join(heldItemVisual.transform.DORotateQuaternion(handPosition.rotation, pickupDuration)/*.SetEase(Ease.OutQuad)*/);
-                //pickupSequence.Join(heldItemVisual.transform.DOScale(startScale * handScale, pickupDuration).SetEase(Ease.OutQuad));
-
+                transform.DOMove(targetWorldPos, pickupDuration).SetEase(Ease.OutQuad);
+                pickupSequence.Append(heldItemVisual.transform.DOMove(targetWorldPos, pickupDuration).SetEase(Ease.OutQuad));
+                pickupSequence.Join(heldItemVisual.transform.DORotateQuaternion(handPosition.rotation, pickupDuration).SetEase(Ease.OutQuad));
+                pickupSequence.Join(heldItemVisual.transform.DOScale(startScale * handScale, pickupDuration).SetEase(Ease.OutQuad));
+                print("Hey");
                 pickupSequence.OnComplete(() =>
                 {
                     Debug.Log("Animation complete, parenting to hand");
@@ -135,12 +134,10 @@ namespace PizzaShop.Inventory
             {
                 // Instantiate new visual
                 heldItemVisual = Instantiate(prefab, handPosition);
-                heldItemVisual.transform.localPosition = Vector3.zero;
-                heldItemVisual.transform.localRotation = Quaternion.identity;
-
-                //heldItemVisual.transform.localScale = Vector3.zero;
-                //heldItemVisual.transform.DOScale(Vector3.one * handScale, pickupDuration)
-                //    .SetEase(Ease.OutBack);
+                heldItemVisual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                heldItemVisual.transform.localScale = Vector3.zero;
+                heldItemVisual.transform.DOScale(Vector3.one * handScale, pickupDuration)
+                    .SetEase(Ease.OutBack);
             }
         }
 

@@ -17,6 +17,7 @@ namespace PizzaShop.Interaction
         [Header("Pickup Settings")]
         [SerializeField] private bool destroyOnPickup = true;
         [SerializeField] private GameObject visualPrefab;
+        [SerializeField] private float destroyTime = 0.3f;
 
         public override void OnInteract(PlayerController player)
         {
@@ -39,7 +40,7 @@ namespace PizzaShop.Interaction
                 // Animate and destroy
                 if (destroyOnPickup)
                 {
-                    transform.DOScale(Vector3.zero, 0.3f)
+                    transform.DOScale(Vector3.zero, destroyTime)
                         .SetEase(Ease.InBack)
                         .OnComplete(() => Destroy(gameObject));
                 }

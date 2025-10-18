@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneBootstrapper
   initialGameplayScene: MainShop
   autoLoadOnStart: 1
-  loadDelay: 0.5
+  loadDelay: 0.01
   loadingIndicator: {fileID: 706951388}
   useLoadingScreen: 1
   logSceneLoading: 1

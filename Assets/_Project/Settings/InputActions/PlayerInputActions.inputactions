@@ -246,7 +246,7 @@
             "actions": [
                 {
                     "name": "Navigate",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "9cbb3b3c-9c3e-44bc-a14d-5c8e921bd6e1",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -275,6 +275,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "aad9510d-9726-42ae-b472-fe8fcbe08c7c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Point",
+                    "type": "Button",
+                    "id": "4bbd5350-41b4-48af-b368-acf28cb7d912",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -334,6 +343,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "644327ab-6e3a-4568-b824-168f1bb24e85",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,13 +1,8 @@
 using UnityEngine;
 using PizzaShop.Player;
-using PizzaShop.Utilities;
 
 namespace PizzaShop.Interaction
 {
-    /// <summary>
-    /// Base class for interactable objects.
-    /// Provides default implementations and common functionality.
-    /// </summary>
     public abstract class InteractableBase : MonoBehaviour, IInteractable
     {
         [Header("Interactable Settings")]
@@ -17,11 +12,12 @@ namespace PizzaShop.Interaction
 
         [Header("Visual Feedback")]
         [SerializeField] protected bool useOutline = true;
-        [SerializeField] protected Color outlineColor = Color.yellow;
-        [SerializeField] protected float outlineWidth = 5f;
+        [SerializeField] protected Color outlineColor = Color.yellow; // Not used with layer system
+        [SerializeField] protected float outlineWidth = 5f; // Not used with layer system
 
-        protected Outline outline;
         protected bool isHighlighted = false;
+        private int originalLayer;
+        private int highlightedLayer;
 
         // Interface Properties
         public virtual string DisplayName => displayName;
@@ -29,17 +25,24 @@ namespace PizzaShop.Interaction
 
         protected virtual void Awake()
         {
-            // Add outline component for highlighting
-            if (useOutline)
+            // Store original layer (should be "Interactable")
+            originalLayer = gameObject.layer;
+
+            // Get the "Highlighted" layer for outline rendering
+            highlightedLayer = LayerMask.NameToLayer("Highlighted");
+
+            if (highlightedLayer == -1)
             {
-                outline = gameObject.AddComponent<Outline>();
-                outline.OutlineColor = outlineColor;
-                outline.OutlineWidth = outlineWidth;
-                outline.enabled = false;
+                Debug.LogError("[InteractableBase] 'Highlighted' layer not found! Please create it in Project Settings > Tags and Layers");
+            }
+
+            // Make sure this object is on the Interactable layer so raycast can find it
+            if (gameObject.layer != LayerMask.NameToLayer("Interactable"))
+            {
+                Debug.LogWarning($"[InteractableBase] {gameObject.name} should be on 'Interactable' layer for raycasting!");
             }
         }
 
-        // Interface Methods
         public virtual bool CanInteract(PlayerController player)
         {
             return isInteractable;
@@ -56,33 +59,42 @@ namespace PizzaShop.Interaction
 
         public virtual float GetInteractionProgress()
         {
-            return 0f; // Override in hold-type interactions
+            return 0f;
         }
 
         public virtual void OnLookEnter(PlayerController player)
         {
-            if (useOutline && outline != null)
+            if (useOutline && highlightedLayer != -1)
             {
-                outline.enabled = true;
+                // Switch to Highlighted layer to trigger outline
+                SetLayerRecursively(gameObject, highlightedLayer);
                 isHighlighted = true;
             }
         }
 
         public virtual void OnLookExit(PlayerController player)
         {
-            if (useOutline && outline != null)
+            if (useOutline)
             {
-                outline.enabled = false;
+                // Restore original layer (Interactable)
+                SetLayerRecursively(gameObject, originalLayer);
                 isHighlighted = false;
+            }
+        }
+
+        // Helper method to set layer on object and all children
+        private void SetLayerRecursively(GameObject obj, int layer)
+        {
+            obj.layer = layer;
+            foreach (Transform child in obj.transform)
+            {
+                SetLayerRecursively(child.gameObject, layer);
             }
         }
 
         protected virtual void OnDestroy()
         {
-            if (outline != null)
-            {
-                Destroy(outline);
-            }
+            // Cleanup if needed
         }
     }
 }

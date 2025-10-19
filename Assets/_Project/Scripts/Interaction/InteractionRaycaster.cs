@@ -41,7 +41,7 @@ namespace PizzaShop.Interaction
         {
             if (playerCamera == null) return null;
 
-            Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+            Ray ray = new(playerCamera.transform.position, playerCamera.transform.forward);
             IInteractable newInteractable = null;
 
             // Use SphereCast for more forgiving detection
@@ -55,16 +55,10 @@ namespace PizzaShop.Interaction
             if (newInteractable != currentInteractable)
             {
                 // Exit previous
-                if (currentInteractable != null)
-                {
-                    currentInteractable.OnLookExit(GetPlayerController());
-                }
+                currentInteractable?.OnLookExit(GetPlayerController());
 
                 // Enter new
-                if (newInteractable != null)
-                {
-                    newInteractable.OnLookEnter(GetPlayerController());
-                }
+                newInteractable?.OnLookEnter(GetPlayerController());
 
                 currentInteractable = newInteractable;
             }

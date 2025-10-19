@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1651459705}
   - component: {fileID: 1651459709}
   - component: {fileID: 1651459708}
+  - component: {fileID: 1651459710}
   - component: {fileID: 1651459707}
   - component: {fileID: 1651459706}
   m_Layer: 6
@@ -553,6 +554,7 @@ GameObject:
   - component: {fileID: 770710758}
   - component: {fileID: 770710761}
   - component: {fileID: 770710760}
+  - component: {fileID: 770710763}
   - component: {fileID: 770710759}
   - component: {fileID: 770710762}
   m_Layer: 6
@@ -620,7 +622,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 5
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4b5cb153536fbbb43a83e11c1b031630, type: 2}
@@ -677,6 +679,33 @@ MonoBehaviour:
   destroyOnPickup: 1
   visualPrefab: {fileID: 0}
   destroyTime: 0.3
+--- !u!54 &770710763
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770710757}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,7 +1766,7 @@ MonoBehaviour:
   interactionDistance: 3
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   raycastRadius: 0.1
   drawDebugRay: 1
   debugRayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -1756,8 +1785,10 @@ MonoBehaviour:
   maxHeldItems: 1
   handPosition: {fileID: 0}
   handOffset: {x: 0.89, y: -0.77, z: 1.59}
-  handScale: 0.5
-  pickupDuration: 0.3
+  handScale: 1
+  dropDistance: 1.5
+  dropForce: 2
+  pickupDuration: 0.2
   dropDuration: 0.2
 --- !u!1 &1551427046
 GameObject:
@@ -1936,8 +1967,8 @@ MonoBehaviour:
   interactionType: 0
   isInteractable: 1
   useOutline: 1
-  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  outlineWidth: 5
+  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.29803923}
+  outlineWidth: 0.05
   itemID: cube_01
   itemType: 1
   destroyOnPickup: 1
@@ -1986,7 +2017,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 5
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4d7c4b3ec727c3f4b8accbf73e78d9e5, type: 2}
@@ -2020,6 +2051,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329704667}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1651459710
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329704667}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1694701989
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,6 +2164,7 @@ GameObject:
   - component: {fileID: 1813907071}
   - component: {fileID: 1813907074}
   - component: {fileID: 1813907073}
+  - component: {fileID: 1813907076}
   - component: {fileID: 1813907072}
   - component: {fileID: 1813907075}
   m_Layer: 6
@@ -2124,7 +2183,7 @@ Transform:
   m_GameObject: {fileID: 1813907070}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0.5, z: 3}
+  m_LocalPosition: {x: 2, y: 1, z: 4.077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2175,7 +2234,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 5
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 2071a4f3fbeeb324d8b0a4c17ea632c2, type: 2}
@@ -2232,6 +2291,33 @@ MonoBehaviour:
   destroyOnPickup: 1
   visualPrefab: {fileID: 0}
   destroyTime: 0.3
+--- !u!54 &1813907076
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813907070}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1878958911
 GameObject:
   m_ObjectHideFlags: 0

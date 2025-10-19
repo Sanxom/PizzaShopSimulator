@@ -28,27 +28,13 @@ namespace PizzaShop.Interaction
                 return;
             }
 
-            // Create inventory item
             InventoryItem item = new InventoryItem(itemID, displayName, itemType)
             {
                 visualPrefab = visualPrefab != null ? visualPrefab : gameObject
             };
 
-            // Try to pick up
-            if (inventory.PickupItem(item, destroyOnPickup ? null : gameObject))
-            {
-                // Animate and destroy
-                if (destroyOnPickup)
-                {
-                    transform.DOScale(Vector3.zero, destroyTime)
-                        .SetEase(Ease.InBack)
-                        .OnComplete(() => Destroy(gameObject));
-                }
-                else
-                {
-                    gameObject.SetActive(false);
-                }
-            }
+            // Pass THIS gameObject as the worldObject parameter
+            inventory.PickupItem(item, gameObject); // <-- This is key
         }
 
         public override string GetInteractionPrompt(PlayerController player)

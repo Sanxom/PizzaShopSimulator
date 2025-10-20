@@ -16,11 +16,11 @@ namespace PizzaShop.Inventory
         [Header("Hand Position")]
         [SerializeField] private Transform handPosition;
         [SerializeField] private Vector3 handOffset = new Vector3(0.3f, -0.2f, 0.5f);
-        [SerializeField] private float handScale = 0.5f; // Add this - scale items to 50% in hand
+        [SerializeField] private float handScale = 0.5f;
 
         [Header("Drop Settings")]
-        [SerializeField] private float dropDistance = 1.5f; // How far in front to drop
-        [SerializeField] private float dropForce = 2f; // Optional physics force
+        [SerializeField] private float dropDistance = 1.5f;
+        [SerializeField] private float dropForce = 2f;
 
         [Header("Animation")]
         [SerializeField] private float pickupDuration = 0.3f;
@@ -47,6 +47,34 @@ namespace PizzaShop.Inventory
         }
 
         /// <summary>
+        /// Get the currently held item.
+        /// </summary>
+        public InventoryItem GetHeldItem()
+        {
+            return currentItem;
+        }
+
+        /// <summary>
+        /// Clear the held item without dropping (for consumption).
+        /// </summary>
+        public void ClearHeldItem()
+        {
+            if (!IsHoldingItem) return;
+
+            Debug.Log($"[PlayerInventory] Clearing: {currentItem.itemName}");
+
+            if (heldItemVisual != null)
+            {
+                heldItemVisual.transform.DOKill();
+                Destroy(heldItemVisual);
+            }
+
+            currentItem = null;
+            heldItemVisual = null;
+            previousParent = null;
+        }
+
+        /// <summary>
         /// Pick up an item and add to inventory.
         /// </summary>
         public bool PickupItem(InventoryItem item, GameObject worldObject = null)
@@ -57,8 +85,6 @@ namespace PizzaShop.Inventory
                 return false;
             }
 
-            previousParent = worldObject.transform.parent;
-            previousScale = worldObject.transform.localScale;
             currentItem = item;
 
             // Create visual in hand
@@ -88,14 +114,6 @@ namespace PizzaShop.Inventory
                 heldItemVisual.transform.SetParent(previousParent);
                 heldItemVisual.transform.localScale = previousScale;
 
-                // Calculate drop position (in front of player)
-                //Vector3 dropPosition = Camera.main.transform.position + Camera.main.transform.forward * dropDistance;
-
-                // Animate to drop position
-                //heldItemVisual.transform.DOMove(dropPosition, dropDuration)
-                //    .SetEase(Ease.OutQuad)
-                //    .OnComplete(() =>
-                    
                 // Re-enable physics
                 if (heldItemVisual.TryGetComponent<Rigidbody>(out var rb))
                 {
@@ -113,7 +131,6 @@ namespace PizzaShop.Inventory
                 {
                     heldItemVisual.layer = interactableLayer;
                 }
-                    
             }
 
             currentItem = null;
@@ -131,7 +148,7 @@ namespace PizzaShop.Inventory
             Debug.Log($"[PlayerInventory] Used: {currentItem.itemName}");
 
             // For single-use items, remove after use
-            DropItem();
+            ClearHeldItem();
             return true;
         }
 
@@ -160,68 +177,20 @@ namespace PizzaShop.Inventory
 
                 // Parent to hand immediately
                 heldItemVisual.transform.SetParent(handPosition);
-                heldItemVisual.transform.localPosition = Vector3.zero;
-                heldItemVisual.transform.localRotation = Quaternion.identity;
-                heldItemVisual.transform.localScale = Vector3.one * handScale;
+                heldItemVisual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                heldItemVisual.transform.localScale = previousScale * handScale;
             }
-            else
+            else if (prefab != null)
             {
                 // Instantiate new visual
                 heldItemVisual = Instantiate(prefab, handPosition);
-                heldItemVisual.transform.localPosition = Vector3.zero;
-                heldItemVisual.transform.localRotation = Quaternion.identity;
-                heldItemVisual.transform.localScale = Vector3.one * handScale;
+                heldItemVisual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                heldItemVisual.transform.localScale = previousScale * handScale;
 
                 previousParent = null;
                 previousScale = Vector3.one;
             }
         }
-
-        //private void CreateHeldItemVisual(GameObject prefab, GameObject worldObject)
-        //{
-        //    if (worldObject != null)
-        //    {
-        //        heldItemVisual = worldObject;
-
-        //        // Disable physics immediately
-        //        if (heldItemVisual.TryGetComponent<Rigidbody>(out var rb)) rb.isKinematic = true;
-
-        //        if (heldItemVisual.TryGetComponent<Collider>(out var col)) col.enabled = false;
-
-        //        // Animate directly to hand position in world space
-        //        // After animation, parent to hand so it follows camera
-        //        heldItemVisual.transform.DOMove(handPosition.position, pickupDuration)
-        //            .SetEase(Ease.OutQuad)
-        //            .OnUpdate(() =>
-        //            {
-        //                // Update target position each frame as camera moves
-        //                // This makes it follow a moving target
-        //            })
-        //            .OnComplete(() =>
-        //            {
-        //                // Parent to hand after reaching it
-        //                heldItemVisual.transform.SetParent(handPosition);
-        //                heldItemVisual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        //                heldItemVisual.transform.localScale = Vector3.one * handScale;
-        //            });
-
-        //        // Also animate rotation
-        //        heldItemVisual.transform.DORotateQuaternion(handPosition.rotation, pickupDuration)
-        //            .SetEase(Ease.OutQuad);
-
-        //        // Scale down smoothly during movement
-        //        Vector3 targetScale = heldItemVisual.transform.localScale * handScale;
-        //        heldItemVisual.transform.DOScale(targetScale, pickupDuration)
-        //            .SetEase(Ease.OutQuad);
-        //    }
-        //    else
-        //    {
-        //        // Instantiate new visual
-        //        heldItemVisual = Instantiate(prefab, handPosition);
-        //        heldItemVisual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        //        heldItemVisual.transform.localScale = Vector3.one * handScale;
-        //    }
-        //}
 
         private void OnDestroy()
         {

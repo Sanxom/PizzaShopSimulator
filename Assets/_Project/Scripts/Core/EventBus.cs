@@ -1,5 +1,9 @@
 using System;
 using UnityEngine;
+using PizzaShop.Data;
+using PizzaShop.Equipment;
+using PizzaShop.Food;
+using PizzaShop.Orders;
 
 namespace PizzaShop.Core
 {
@@ -208,6 +212,24 @@ namespace PizzaShop.Core
         public static void RaiseIngredientPickedUp(IngredientData ingredient)
             => SafeInvoke(OnIngredientPickedUp, ingredient, nameof(OnIngredientPickedUp));
 
+        public static void RaiseContainerPlaced(Container container, ContainerSlot slot)
+            => SafeInvoke(OnContainerPlaced, container, slot, nameof(OnContainerPlaced));
+
+        public static void RaiseContainerPickedUp(Container container)
+            => SafeInvoke(OnContainerPickedUp, container, nameof(OnContainerPickedUp));
+
+        public static void RaiseContainerRefilled(Container container, int amount)
+            => SafeInvoke(OnContainerRefilled, container, amount, nameof(OnContainerRefilled));
+
+        public static void RaiseContainerReset(Container container)
+            => SafeInvoke(OnContainerReset, container, nameof(OnContainerReset));
+
+        public static void RaiseContainerAssigned(Container container, IngredientData ingredient)
+            => SafeInvoke(OnContainerAssigned, container, ingredient, nameof(OnContainerAssigned));
+
+        public static void RaiseServingTaken(Container container, IngredientData ingredient)
+            => SafeInvoke(OnServingTaken, container, ingredient, nameof(OnServingTaken));
+
         public static void RaiseIngredientUsed(IngredientData ingredient)
             => SafeInvoke(OnIngredientUsed, ingredient, nameof(OnIngredientUsed));
 
@@ -216,6 +238,24 @@ namespace PizzaShop.Core
 
         public static void RaisePizzaStarted(Pizza pizza)
             => SafeInvoke(OnPizzaStarted, pizza, nameof(OnPizzaStarted));
+
+        public static void RaiseIngredientAddedToPizza(Pizza pizza, IngredientData ingredient)
+            => SafeInvoke(OnIngredientAddedToPizza, pizza, ingredient, nameof(OnIngredientAddedToPizza));
+
+        public static void RaisePizzaBurnt(Pizza pizza)
+            => SafeInvoke(OnPizzaBurnt, pizza, nameof(OnPizzaBurnt));
+
+        public static void RaisePizzaCooked(Pizza pizza, CookQuality quality)
+            => SafeInvoke(OnPizzaCooked, pizza, quality, nameof(OnPizzaCooked));
+
+        public static void RaisePizzaCancelled(Pizza pizza)
+            => SafeInvoke(OnPizzaCancelled, pizza, nameof(OnPizzaCancelled));
+
+        public static void RaisePizzaCompleted(Pizza pizza)
+            => SafeInvoke(OnPizzaCompleted, pizza, nameof(OnPizzaCompleted));
+
+        public static void RaisePizzaPickedUp(Pizza pizza)
+            => SafeInvoke(OnPizzaPickedUp, pizza, nameof(OnPizzaPickedUp));
 
         public static void RaiseMoneyChanged(int oldAmount, int newAmount)
             => SafeInvoke(OnMoneyChanged, oldAmount, newAmount, nameof(OnMoneyChanged));
@@ -326,11 +366,6 @@ namespace PizzaShop.Core
     }
 
     // Placeholder classes for compilation (will be implemented in later phases)
-    public class IngredientData { }
-    public class Container { }
-    public class ContainerSlot { }
-    public class Order { }
-    public class Pizza { }
     public class Oven { }
     public class UnlockData { }
 }

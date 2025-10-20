@@ -52,10 +52,10 @@ namespace PizzaShop.Core
             ServiceLocator.Initialize();
 
             // Register services in dependency order
+            ServiceLocator.Register<IDataService>(new DataService());
             ServiceLocator.Register<IInputService>(new InputService());
 
             // Future services will be added here:
-            // ServiceLocator.Register<IDataService>(new DataService());
             // ServiceLocator.Register<IAudioService>(new AudioService());
             // ServiceLocator.Register<IUIService>(new UIService());
             // ServiceLocator.Register<ISaveService>(new SaveService());

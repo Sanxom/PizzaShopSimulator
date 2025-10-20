@@ -23,7 +23,7 @@ namespace PizzaShop.Equipment
 
         // State
         private IContainerState currentState;
-        private Data.IngredientData assignedIngredient;
+        private IngredientData assignedIngredient;
         private int currentServings;
         private bool isBeingCarried;
 
@@ -34,7 +34,7 @@ namespace PizzaShop.Equipment
 
         // Properties
         public ContainerData Data => containerData;
-        public Data.IngredientData AssignedIngredient => assignedIngredient;
+        public IngredientData AssignedIngredient => assignedIngredient;
         public int CurrentServings => currentServings;
         public int MaxCapacity => containerData?.MaxCapacity ?? 20;
         public bool IsAssigned => assignedIngredient != null;
@@ -105,7 +105,7 @@ namespace PizzaShop.Equipment
         /// Assign this container to a specific ingredient.
         /// Called when first ingredient is placed.
         /// </summary>
-        public void AssignIngredient(Data.IngredientData ingredient)
+        public void AssignIngredient(IngredientData ingredient)
         {
             if (assignedIngredient != null)
             {
@@ -116,7 +116,7 @@ namespace PizzaShop.Equipment
             assignedIngredient = ingredient;
 
             // Raise event (Observer pattern)
-            //EventBus.OnContainerAssigned?.Invoke(this, ingredient);
+            EventBus.RaiseContainerAssigned(this, ingredient);
 
             UpdateDisplayName();
             UpdateVisuals();
@@ -132,7 +132,7 @@ namespace PizzaShop.Equipment
             TransitionToState(EmptyState);
 
             // Raise event
-            //EventBus.OnContainerReset?.Invoke(this);
+            EventBus.RaiseContainerReset(this);
 
             UpdateVisuals();
         }
@@ -152,7 +152,7 @@ namespace PizzaShop.Equipment
             UpdateVisuals();
 
             // Raise event
-            //EventBus.OnContainerRefilled?.Invoke(this, 1);
+            EventBus.RaiseContainerRefilled(this, 1);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace PizzaShop.Equipment
             }
 
             // Raise event
-            //EventBus.OnServingTaken?.Invoke(this, assignedIngredient);
+            EventBus.RaiseServingTaken(this, assignedIngredient);
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace PizzaShop.Equipment
                 // Remove from slot
                 if (currentSlot != null)
                 {
-                    //currentSlot.RemoveContainer();
+                    currentSlot.RemoveContainer();
                     currentSlot = null;
                 }
 
@@ -325,7 +325,7 @@ namespace PizzaShop.Equipment
                 if (col != null) col.enabled = false;
 
                 // Raise event
-                //EventBus.OnContainerPickedUp?.Invoke(this);
+                EventBus.RaiseContainerPickedUp(this);
             }
         }
 
@@ -342,14 +342,14 @@ namespace PizzaShop.Equipment
             if (col != null) col.enabled = true;
 
             // Animate to slot position
-            //transform.DOMove(slot.GetPlacementPosition(), 0.3f).SetEase(Ease.OutBack);
-            //transform.DORotateQuaternion(slot.transform.rotation, 0.3f);
+            transform.DOMove(slot.GetPlacementPosition(), 0.3f).SetEase(Ease.OutBack);
+            transform.DORotateQuaternion(slot.transform.rotation, 0.3f);
 
             // Register with slot
-            //slot.PlaceContainer(this);
+            slot.PlaceContainer(this);
 
             // Raise event
-            //EventBus.OnContainerPlaced?.Invoke(this, slot);
+            EventBus.RaiseContainerPlaced(this, slot);
         }
 
         public void SetSlot(ContainerSlot slot)

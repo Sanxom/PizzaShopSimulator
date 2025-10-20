@@ -21,14 +21,13 @@ namespace PizzaShop.Interaction
 
         public override void OnInteract(PlayerController player)
         {
-            PlayerInventory inventory = player.GetComponent<PlayerInventory>();
-            if (inventory == null)
+            if (!player.TryGetComponent<PlayerInventory>(out var inventory))
             {
                 Debug.LogWarning("[PickupableItem] No PlayerInventory found!");
                 return;
             }
 
-            InventoryItem item = new InventoryItem(itemID, displayName, itemType)
+            InventoryItem item = new(itemID, displayName, itemType)
             {
                 visualPrefab = visualPrefab != null ? visualPrefab : gameObject
             };

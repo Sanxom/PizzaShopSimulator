@@ -18,13 +18,13 @@ namespace PizzaShop.Inventory
         [SerializeField] private Vector3 handOffset = new Vector3(0.3f, -0.2f, 0.5f);
         [SerializeField] private float handScale = 0.5f;
 
-        [Header("Drop Settings")]
-        [SerializeField] private float dropDistance = 1.5f;
-        [SerializeField] private float dropForce = 2f;
+        //[Header("Drop Settings")]
+        //[SerializeField] private float dropDistance = 1.5f;
+        //[SerializeField] private float dropForce = 2f;
 
         [Header("Animation")]
         [SerializeField] private float pickupDuration = 0.3f;
-        [SerializeField] private float dropDuration = 0.2f;
+        //[SerializeField] private float dropDuration = 0.2f;
 
         private InventoryItem currentItem;
         private GameObject heldItemVisual;
@@ -99,44 +99,44 @@ namespace PizzaShop.Inventory
         /// <summary>
         /// Drop the currently held item into the world.
         /// </summary>
-        public void DropItem()
-        {
-            if (!IsHoldingItem) return;
+        //public void DropItem()
+        //{
+        //    if (!IsHoldingItem) return;
 
-            Debug.Log($"[PlayerInventory] Dropping: {currentItem.itemName}");
+        //    Debug.Log($"[PlayerInventory] Dropping: {currentItem.itemName}");
 
-            if (heldItemVisual != null)
-            {
-                // Kill any active tweens on the object
-                heldItemVisual.transform.DOKill();
+        //    if (heldItemVisual != null)
+        //    {
+        //        // Kill any active tweens on the object
+        //        heldItemVisual.transform.DOKill();
 
-                // Unparent from hand
-                heldItemVisual.transform.SetParent(previousParent);
-                heldItemVisual.transform.localScale = previousScale;
+        //        // Unparent from hand
+        //        heldItemVisual.transform.SetParent(previousParent);
+        //        heldItemVisual.transform.localScale = previousScale;
 
-                // Re-enable physics
-                if (heldItemVisual.TryGetComponent<Rigidbody>(out var rb))
-                {
-                    rb.isKinematic = false;
-                    // Optional: add a little forward force
-                    rb.AddForce(Camera.main.transform.forward * dropForce, ForceMode.Impulse);
-                }
+        //        // Re-enable physics
+        //        if (heldItemVisual.TryGetComponent<Rigidbody>(out var rb))
+        //        {
+        //            rb.isKinematic = false;
+        //            // Optional: add a little forward force
+        //            rb.AddForce(Camera.main.transform.forward * dropForce, ForceMode.Impulse);
+        //        }
 
-                // Re-enable collider
-                if (heldItemVisual.TryGetComponent<Collider>(out var col)) col.enabled = true;
+        //        // Re-enable collider
+        //        if (heldItemVisual.TryGetComponent<Collider>(out var col)) col.enabled = true;
 
-                // Restore to original layer (Interactable)
-                int interactableLayer = LayerMask.NameToLayer("Interactable");
-                if (interactableLayer != -1)
-                {
-                    heldItemVisual.layer = interactableLayer;
-                }
-            }
+        //        // Restore to original layer (Interactable)
+        //        int interactableLayer = LayerMask.NameToLayer("Interactable");
+        //        if (interactableLayer != -1)
+        //        {
+        //            heldItemVisual.layer = interactableLayer;
+        //        }
+        //    }
 
-            currentItem = null;
-            previousParent = null;
-            heldItemVisual = null;
-        }
+        //    currentItem = null;
+        //    previousParent = null;
+        //    heldItemVisual = null;
+        //}
 
         /// <summary>
         /// Use/consume the currently held item.

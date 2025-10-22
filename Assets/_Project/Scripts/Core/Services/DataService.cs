@@ -15,6 +15,7 @@ namespace PizzaShop.Core
         private Dictionary<string, IngredientData> ingredients;
         private Dictionary<string, ContainerData> containers;
         private Dictionary<string, MakeTableData> makeTables;
+        private Dictionary<string, OvenData> ovens;
 
         public bool IsDataLoaded { get; private set; }
 
@@ -25,6 +26,7 @@ namespace PizzaShop.Core
             ingredients = new Dictionary<string, IngredientData>();
             containers = new Dictionary<string, ContainerData>();
             makeTables = new Dictionary<string, MakeTableData>();
+            ovens = new Dictionary<string, OvenData>();
 
             LoadAllData();
 
@@ -49,6 +51,7 @@ namespace PizzaShop.Core
             LoadIngredients();
             LoadContainers();
             LoadMakeTables();
+            LoadOvens();
         }
 
         private void LoadIngredients()
@@ -121,6 +124,30 @@ namespace PizzaShop.Core
             }
 
             Debug.Log($"[DataService] Loaded {makeTables.Count} make tables");
+        }
+
+        private void LoadOvens()
+        {
+            var loadedOvens = Resources.LoadAll<OvenData>("Data/Ovens");
+
+            foreach (var oven in loadedOvens)
+            {
+                if (string.IsNullOrEmpty(oven.OvenID))
+                {
+                    Debug.LogWarning($"[DataService] Oven {oven.name} has no ID!");
+                    continue;
+                }
+
+                if (ovens.ContainsKey(oven.OvenID))
+                {
+                    Debug.LogWarning($"[DataService] Duplicate oven ID: {oven.OvenID}");
+                    continue;
+                }
+
+                ovens.Add(oven.OvenID, oven);
+            }
+
+            Debug.Log($"[DataService] Loaded {ovens.Count} ovens");
         }
 
         // ==================== INGREDIENT DATA ====================
@@ -235,6 +262,41 @@ namespace PizzaShop.Core
             return makeTables.Values.ToList();
         }
 
+        // ==================== OVEN DATA ====================
+
+        public OvenData GetOven(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                Debug.LogError("[DataService] Cannot get oven with null/empty ID");
+                return null;
+            }
+
+            if (ovens.TryGetValue(id, out var oven))
+            {
+                return oven;
+            }
+
+            Debug.LogError($"[DataService] Oven not found: {id}");
+            return null;
+        }
+
+        public bool TryGetOven(string id, out OvenData oven)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                oven = null;
+                return false;
+            }
+
+            return ovens.TryGetValue(id, out oven);
+        }
+
+        public IReadOnlyList<OvenData> GetAllOvens()
+        {
+            return ovens.Values.ToList();
+        }
+
         // ==================== UTILITY ====================
 
         public void ReloadAllData()
@@ -244,6 +306,7 @@ namespace PizzaShop.Core
             ingredients.Clear();
             containers.Clear();
             makeTables.Clear();
+            ovens.Clear();
 
             LoadAllData();
 

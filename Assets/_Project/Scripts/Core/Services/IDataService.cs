@@ -25,6 +25,11 @@ namespace PizzaShop.Core
         bool TryGetMakeTable(string id, out MakeTableData table);
         IReadOnlyList<MakeTableData> GetAllMakeTables();
 
+        // Oven Data
+        OvenData GetOven(string id);
+        bool TryGetOven(string id, out OvenData oven);
+        IReadOnlyList<OvenData> GetAllOvens();
+
         // Utility
         bool IsDataLoaded { get; }
         void ReloadAllData();

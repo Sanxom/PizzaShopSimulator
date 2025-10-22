@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3903249770392510876
+--- !u!1 &1346708874745696468
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,30 +8,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8716207500143284235}
-  m_Layer: 0
-  m_Name: SlotsParent
+  - component: {fileID: 8459702390574640394}
+  m_Layer: 6
+  m_Name: OvenSlotsParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8716207500143284235
+--- !u!4 &8459702390574640394
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3903249770392510876}
+  m_GameObject: {fileID: 1346708874745696468}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1155140763947043958}
+  m_Father: {fileID: 1765065771137140703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5107611710293144532
+--- !u!1 &8557488460766654735
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,81 +39,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8460987326178420549}
-  m_Layer: 0
-  m_Name: ZonesParent
+  - component: {fileID: 1765065771137140703}
+  - component: {fileID: 8142853448391026039}
+  - component: {fileID: 9175622243190690202}
+  - component: {fileID: 3937460991112786582}
+  - component: {fileID: 2448124323586140350}
+  m_Layer: 6
+  m_Name: BasicOven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8460987326178420549
+--- !u!4 &1765065771137140703
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5107611710293144532}
+  m_GameObject: {fileID: 8557488460766654735}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 0.51, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1155140763947043958}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7910255444079388498
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1155140763947043958}
-  - component: {fileID: 5712160849805925258}
-  - component: {fileID: 9162748425083878410}
-  - component: {fileID: 1234905446060787024}
-  - component: {fileID: 6975082646843710473}
-  m_Layer: 0
-  m_Name: BasicMakeTable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1155140763947043958
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910255444079388498}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8716207500143284235}
-  - {fileID: 8460987326178420549}
+  - {fileID: 8459702390574640394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5712160849805925258
+--- !u!33 &8142853448391026039
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910255444079388498}
+  m_GameObject: {fileID: 8557488460766654735}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &9162748425083878410
+--- !u!23 &9175622243190690202
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910255444079388498}
+  m_GameObject: {fileID: 8557488460766654735}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -129,7 +97,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 5
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
@@ -155,13 +123,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1234905446060787024
+--- !u!65 &3937460991112786582
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910255444079388498}
+  m_GameObject: {fileID: 8557488460766654735}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -176,20 +144,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6975082646843710473
+--- !u!114 &2448124323586140350
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7910255444079388498}
+  m_GameObject: {fileID: 8557488460766654735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4ba28c8b4f00c4a8b898193050e4e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b8979920d3b185468aa5413b7a5c400, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Equipment.MakeTable
-  tableData: {fileID: 11400000, guid: e0c984862eeaf8544817b3ee6f2044dd, type: 2}
-  slotPrefab: {fileID: 5866508360941563999, guid: ce3c7b4de3c06a049bd0948c6ce22862, type: 3}
-  assemblyZonePrefab: {fileID: 3180328099298099126, guid: dad9d1e438a09ea42a72952dd54374f2, type: 3}
-  slotsParent: {fileID: 8716207500143284235}
-  zonesParent: {fileID: 8460987326178420549}
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Equipment.Oven
+  displayName: Interactable
+  interactionType: 0
+  isInteractable: 1
+  useOutline: 1
+  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  outlineWidth: 5
+  ovenData: {fileID: 11400000, guid: 78ef9ccf89f1b2740bcef4366fc78a33, type: 2}
+  slotsParent: {fileID: 8459702390574640394}
+  slotPrefab: {fileID: 7865749120747871802, guid: 08a89f3001f203c4bbfb618f4c4c41be, type: 3}
+  ovenRenderer: {fileID: 0}
+  ovenLight: {fileID: 0}
+  heatParticles: {fileID: 0}
+  ovenAudio: {fileID: 0}
+  turnOnSound: {fileID: 0}
+  cookingLoopSound: {fileID: 0}
+  doneSound: {fileID: 0}

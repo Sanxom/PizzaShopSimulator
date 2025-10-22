@@ -1,43 +1,54 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UI;
 using DG.Tweening;
 
 namespace PizzaShop.Interaction
 {
     /// <summary>
-    /// Manages the interaction prompt UI.
-    /// Shows prompts and progress for hold interactions.
+    /// UI display for interaction prompts.
+    /// Shows prompts with smooth fade animations and dynamic text updates.
     /// </summary>
     public class InteractionUI : MonoBehaviour
     {
-        [Header("UI References")]
+        [Header("UI Components")]
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private TextMeshProUGUI promptText;
-        [SerializeField] private Image progressFill;
-        [SerializeField] private GameObject progressBar;
+        [SerializeField] private Image progressBar;
+        [SerializeField] private GameObject progressBarContainer;
 
         [Header("Animation Settings")]
-        [SerializeField] private float fadeInDuration = 0.2f;
-        [SerializeField] private float fadeOutDuration = 0.15f;
+        [SerializeField] private float fadeDuration = 0.2f;
+        [SerializeField] private Ease fadeEase = Ease.OutQuad;
 
-        private bool isVisible = false;
-        private Tweener currentTween;
+        private Tweener fadeTween;
+        private bool isVisible;
+        private string currentPromptText;
 
         private void Awake()
         {
             if (canvasGroup == null)
             {
                 canvasGroup = GetComponent<CanvasGroup>();
+                if (canvasGroup == null)
+                {
+                    canvasGroup = gameObject.AddComponent<CanvasGroup>();
+                }
+            }
+
+            if (promptText == null)
+            {
+                promptText = GetComponentInChildren<TextMeshProUGUI>();
             }
 
             // Start hidden
             canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
             isVisible = false;
 
-            if (progressBar != null)
+            if (progressBarContainer != null)
             {
-                progressBar.SetActive(false);
+                progressBarContainer.SetActive(false);
             }
         }
 
@@ -46,21 +57,64 @@ namespace PizzaShop.Interaction
         /// </summary>
         public void Show(string prompt, bool showProgress = false)
         {
+            if (string.IsNullOrEmpty(prompt))
+            {
+                Hide();
+                return;
+            }
+
+            // Update text
+            currentPromptText = prompt;
             if (promptText != null)
             {
                 promptText.text = prompt;
             }
 
-            if (progressBar != null)
+            // Handle progress bar visibility
+            if (progressBarContainer != null)
             {
-                progressBar.SetActive(showProgress);
+                progressBarContainer.SetActive(showProgress);
             }
 
+            // Fade in if not already visible
             if (!isVisible)
             {
                 isVisible = true;
-                currentTween?.Kill();
-                currentTween = canvasGroup.DOFade(1f, fadeInDuration).SetUpdate(true);
+                FadeIn();
+            }
+        }
+
+        /// <summary>
+        /// Update just the text without re-fading.
+        /// Used for dynamic prompts that change while looking at same object.
+        /// </summary>
+        public void UpdateText(string prompt)
+        {
+            if (string.IsNullOrEmpty(prompt))
+            {
+                Hide();
+                return;
+            }
+
+            // Only update if text actually changed
+            if (currentPromptText != prompt)
+            {
+                currentPromptText = prompt;
+                if (promptText != null)
+                {
+                    promptText.text = prompt;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update progress bar (for hold interactions).
+        /// </summary>
+        public void UpdateProgress(float progress)
+        {
+            if (progressBar != null)
+            {
+                progressBar.fillAmount = Mathf.Clamp01(progress);
             }
         }
 
@@ -69,33 +123,55 @@ namespace PizzaShop.Interaction
         /// </summary>
         public void Hide()
         {
-            if (isVisible)
-            {
-                isVisible = false;
-                currentTween?.Kill();
-                currentTween = canvasGroup.DOFade(0f, fadeOutDuration).SetUpdate(true);
+            if (!isVisible) return;
 
-                if (progressBar != null)
-                {
-                    progressBar.SetActive(false);
-                }
+            isVisible = false;
+            currentPromptText = null;
+            FadeOut();
+
+            if (progressBarContainer != null)
+            {
+                progressBarContainer.SetActive(false);
             }
         }
 
         /// <summary>
-        /// Update hold interaction progress (0 to 1).
+        /// Check if prompt is currently visible.
         /// </summary>
-        public void UpdateProgress(float progress)
+        public bool IsVisible()
         {
-            if (progressFill != null)
-            {
-                progressFill.fillAmount = progress;
-            }
+            return isVisible;
+        }
+
+        /// <summary>
+        /// Get current prompt text.
+        /// </summary>
+        public string GetCurrentText()
+        {
+            return currentPromptText;
+        }
+
+        private void FadeIn()
+        {
+            fadeTween?.Kill();
+            canvasGroup.blocksRaycasts = false; // UI should not block interactions
+            fadeTween = canvasGroup.DOFade(1f, fadeDuration)
+                .SetEase(fadeEase)
+                .SetUpdate(true); // Ignore timescale
+        }
+
+        private void FadeOut()
+        {
+            fadeTween?.Kill();
+            fadeTween = canvasGroup.DOFade(0f, fadeDuration)
+                .SetEase(fadeEase)
+                .SetUpdate(true)
+                .OnComplete(() => canvasGroup.blocksRaycasts = false);
         }
 
         private void OnDestroy()
         {
-            currentTween?.Kill();
+            fadeTween?.Kill();
         }
     }
 }

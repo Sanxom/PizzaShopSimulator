@@ -257,6 +257,12 @@ namespace PizzaShop.Core
         public static void RaisePizzaPickedUp(Pizza pizza)
             => SafeInvoke(OnPizzaPickedUp, pizza, nameof(OnPizzaPickedUp));
 
+        public static void RaisePizzaPlacedInOven(Pizza pizza, Oven oven)
+            => SafeInvoke(OnPizzaPlacedInOven, pizza, oven, nameof(OnPizzaPlacedInOven));
+
+        public static void RaisePizzaRemovedFromOven(Pizza pizza, Oven oven)
+            => SafeInvoke(OnPizzaRemovedFromOven, pizza, oven, nameof(OnPizzaRemovedFromOven));
+
         public static void RaiseMoneyChanged(int oldAmount, int newAmount)
             => SafeInvoke(OnMoneyChanged, oldAmount, newAmount, nameof(OnMoneyChanged));
 
@@ -356,16 +362,6 @@ namespace PizzaShop.Core
         Interacting
     }
 
-    public enum CookQuality
-    {
-        Raw,
-        Undercooked,
-        Perfect,
-        Overcooked,
-        Burnt
-    }
-
     // Placeholder classes for compilation (will be implemented in later phases)
-    public class Oven { }
     public class UnlockData { }
 }

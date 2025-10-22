@@ -192,7 +192,7 @@ namespace PizzaShop.Food
 
             cookTimer += deltaTime;
 
-            // Update cook quality based on time
+            // Calculate current quality based on time
             if (cookTimer < perfectTime * 0.5f)
             {
                 cookQuality = CookQuality.Raw;
@@ -216,14 +216,27 @@ namespace PizzaShop.Food
                 EventBus.RaisePizzaBurnt(this);
             }
 
+            // Update visual quality
             visualizer?.UpdateCookQuality(cookQuality);
+
+            // Auto-finish when cooked (but not burnt)
+            if (cookTimer >= perfectTime && cookQuality != CookQuality.Burnt && currentState != PizzaState.Cooked)
+            {
+                currentState = PizzaState.Cooked;
+            }
         }
 
         /// <summary>
-        /// Finish cooking.
+        /// Finish cooking (called when removed from oven).
         /// </summary>
         public void FinishCooking()
         {
+            if (currentState != PizzaState.Cooking && currentState != PizzaState.Cooked)
+            {
+                Debug.LogWarning("[Pizza] Pizza is not cooking!");
+                return;
+            }
+
             currentState = PizzaState.Cooked;
             EventBus.RaisePizzaCooked(this, cookQuality);
 

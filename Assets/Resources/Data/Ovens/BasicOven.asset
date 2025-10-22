@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d66e929aefc2d04c890d81731de78a2, type: 3}
+  m_Name: BasicOven
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Data.OvenData
+  ovenID: basicoven
+  displayName: Basic Oven
+  description: This oven has enough space for two pizzas at a time.
+  maxPizzas: 2
+  supportedSizes: 000000000100000002000000
+  smallPizzaProfile:
+    perfectTime: 30
+    burnTime: 45
+  mediumPizzaProfile:
+    perfectTime: 45
+    burnTime: 60
+  largePizzaProfile:
+    perfectTime: 60
+    burnTime: 75
+  xLargePizzaProfile:
+    perfectTime: 75
+    burnTime: 90
+  cookingTemperature: 450
+  heatUpTime: 5
+  prefab: {fileID: 0}
+  icon: {fileID: 0}
+  heatingColor: {r: 1, g: 0.5, b: 0, a: 1}
+  cookingColor: {r: 1, g: 0.3, b: 0, a: 1}
+  unlockCost: 500
+  startsUnlocked: 1

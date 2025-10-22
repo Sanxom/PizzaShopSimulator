@@ -108,7 +108,7 @@ namespace PizzaShop.Equipment
         {
             GameObject slotObj = GameObject.CreatePrimitive(PrimitiveType.Plane);
             slotObj.transform.position = position;
-            slotObj.transform.localScale = Vector3.one * tableData.SlotSpacing * 0.9f;
+            slotObj.transform.localScale = 0.9f * tableData.SlotSpacing * Vector3.one;
             slotObj.transform.SetParent(slotsParent);
 
             // Remove collider (we'll use raycasting from player)
@@ -154,8 +154,7 @@ namespace PizzaShop.Equipment
                 ? Instantiate(assemblyZonePrefab, worldPos, Quaternion.identity, zonesParent)
                 : CreateDefaultZone(worldPos);
 
-            AssemblyZone zone = zoneObj.GetComponent<AssemblyZone>();
-            if (zone == null)
+            if (!zoneObj.TryGetComponent<AssemblyZone>(out var zone))
             {
                 zone = zoneObj.AddComponent<AssemblyZone>();
             }

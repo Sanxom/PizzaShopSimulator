@@ -9,7 +9,8 @@ namespace PizzaShop.Interaction
 {
     /// <summary>
     /// Main interaction system controller.
-    /// Uses event-driven architecture instead of polling.
+    /// Uses event-driven architecture with dynamic prompt updates.
+    /// Now updates prompts every frame for current target.
     /// </summary>
     [RequireComponent(typeof(InteractionRaycaster))]
     public class InteractionManager : MonoBehaviour
@@ -19,6 +20,7 @@ namespace PizzaShop.Interaction
 
         [Header("Settings")]
         [SerializeField] private bool enableInteraction = true;
+        [SerializeField] private bool updatePromptEveryFrame = true; // NEW: Toggle for performance
 
         private InteractionRaycaster raycaster;
         private IInputService inputService;
@@ -27,6 +29,7 @@ namespace PizzaShop.Interaction
 
         private IInteractable currentTarget;
         private IInteractable lastTarget; // Track changes
+        private string lastPromptText; // Track prompt text changes
 
         private void Awake()
         {
@@ -56,17 +59,26 @@ namespace PizzaShop.Interaction
         {
             if (!enableInteraction) return;
 
-            // Only raycast (necessary for targeting)
+            // Raycast to find current target
             currentTarget = raycaster.PerformRaycast();
 
-            // Only update UI when target changes
+            // Handle target changes
             if (currentTarget != lastTarget)
             {
                 UpdateInteractionUI();
                 lastTarget = currentTarget;
+                lastPromptText = null; // Reset prompt tracking
+            }
+            // Update prompt even if target hasn't changed (for dynamic text)
+            else if (currentTarget != null && updatePromptEveryFrame)
+            {
+                UpdatePromptIfChanged();
             }
         }
 
+        /// <summary>
+        /// Update UI when target changes or first detected.
+        /// </summary>
         private void UpdateInteractionUI()
         {
             if (interactionUI == null) return;
@@ -74,6 +86,8 @@ namespace PizzaShop.Interaction
             if (currentTarget != null && currentTarget.CanInteract(playerController))
             {
                 string prompt = currentTarget.GetInteractionPrompt(playerController);
+                lastPromptText = prompt;
+
                 float progress = currentTarget.GetInteractionProgress();
 
                 interactionUI.Show(prompt, currentTarget.InteractionType == InteractionType.Hold);
@@ -87,6 +101,39 @@ namespace PizzaShop.Interaction
             else
             {
                 interactionUI.Hide();
+                lastPromptText = null;
+            }
+        }
+
+        /// <summary>
+        /// Check if prompt text has changed and update if needed.
+        /// This allows dynamic updates like "Heating... 45%" without looking away.
+        /// </summary>
+        private void UpdatePromptIfChanged()
+        {
+            if (interactionUI == null || currentTarget == null) return;
+
+            if (!currentTarget.CanInteract(playerController))
+            {
+                interactionUI.Hide();
+                lastPromptText = null;
+                return;
+            }
+
+            string currentPrompt = currentTarget.GetInteractionPrompt(playerController);
+
+            // Only update if text actually changed (performance optimization)
+            if (currentPrompt != lastPromptText)
+            {
+                lastPromptText = currentPrompt;
+                interactionUI.UpdateText(currentPrompt);
+            }
+
+            // Always update progress for hold interactions
+            if (currentTarget.InteractionType == InteractionType.Hold)
+            {
+                float progress = currentTarget.GetInteractionProgress();
+                interactionUI.UpdateProgress(progress);
             }
         }
 
@@ -111,12 +158,12 @@ namespace PizzaShop.Interaction
         {
             if (!enableInteraction) return;
 
-            // Try to drop item if holding one
-            PlayerInventory inventory = playerController.GetComponent<PlayerInventory>();
-            if (inventory != null && inventory.IsHoldingItem)
-            {
-                inventory.DropItem();
-            }
+            //// Try to drop item if holding one
+            //PlayerInventory inventory = playerController.GetComponent<PlayerInventory>();
+            //if (inventory != null && inventory.IsHoldingItem)
+            //{
+            //    inventory.DropItem();
+            //}
         }
 
         public void SetInteractionEnabled(bool enabled)
@@ -130,6 +177,7 @@ namespace PizzaShop.Interaction
                 {
                     interactionUI.Hide();
                 }
+                lastPromptText = null;
             }
         }
 

@@ -15,7 +15,7 @@ namespace PizzaShop.Equipment
     {
         [Header("Zone Configuration")]
         [SerializeField] private Vector2Int gridPosition;
-        [SerializeField] private PizzaSize supportedSize = PizzaSize.Large;
+        [SerializeField] private Orders.PizzaSize supportedSize = Orders.PizzaSize.Large;
 
         [Header("Visual Components")]
         [SerializeField] private Transform pizzaAnchor;
@@ -38,7 +38,7 @@ namespace PizzaShop.Equipment
         public Vector2Int GridPosition => gridPosition;
         public bool HasPizza => currentPizza != null;
         public Pizza CurrentPizza => currentPizza;
-        public PizzaSize SupportedSize => supportedSize;
+        public Orders.PizzaSize SupportedSize => supportedSize;
 
         protected override void Awake()
         {
@@ -60,7 +60,7 @@ namespace PizzaShop.Equipment
             TransitionToState(emptyState);
         }
 
-        public void Initialize(Vector2Int position, PizzaSize size)
+        public void Initialize(Vector2Int position, Orders.PizzaSize size)
         {
             gridPosition = position;
             supportedSize = size;
@@ -70,7 +70,7 @@ namespace PizzaShop.Equipment
         /// <summary>
         /// Start a new pizza in this zone.
         /// </summary>
-        public void StartPizza(PizzaSize size)
+        public void StartPizza(Orders.PizzaSize size)
         {
             if (currentPizza != null)
             {

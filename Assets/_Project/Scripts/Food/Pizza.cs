@@ -14,7 +14,7 @@ namespace PizzaShop.Food
     public class Pizza : MonoBehaviour
     {
         [Header("Configuration")]
-        [SerializeField] private PizzaSize size;
+        [SerializeField] private Orders.PizzaSize size;
 
         [Header("Components")]
         [SerializeField] private PizzaVisualizer visualizer;
@@ -30,7 +30,7 @@ namespace PizzaShop.Food
         private bool hasSauce;
         private bool hasCheese;
 
-        public PizzaSize Size => size;
+        public Orders.PizzaSize Size => size;
         public PizzaState State => currentState;
         public IReadOnlyList<IngredientData> Ingredients => ingredients;
         public bool HasDough => hasDough;
@@ -59,7 +59,7 @@ namespace PizzaShop.Food
         /// <summary>
         /// Initialize pizza with size and zone.
         /// </summary>
-        public void Initialize(PizzaSize pizzaSize, AssemblyZone zone)
+        public void Initialize(Orders.PizzaSize pizzaSize, AssemblyZone zone)
         {
             size = pizzaSize;
             currentZone = zone;
@@ -257,21 +257,22 @@ namespace PizzaShop.Food
 
             // Check required ingredients
             // This is simplified - you'd want more detailed matching logic
-            foreach (var requiredIngredient in order.RequiredIngredients)
-            {
-                bool found = false;
-                foreach (var ingredient in ingredients)
-                {
-                    if (ingredient.IngredientID == requiredIngredient.IngredientID)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
+            //foreach (var requiredIngredient in order.RequiredIngredients)
+            //{
+            //    bool found = false;
+            //    foreach (var ingredient in ingredients)
+            //    {
+            //        if (ingredient.IngredientID == requiredIngredient.IngredientID)
+            //        {
+            //            found = true;
+            //            break;
+            //        }
+            //    }
 
-                if (!found)
-                    return false;
-            }
+            //    if (!found)
+            //        return false;
+            //}
+            // TODO: Make this work.
 
             return true;
         }
@@ -283,10 +284,10 @@ namespace PizzaShop.Food
         {
             int baseValue = size switch
             {
-                PizzaSize.Small => 10,
-                PizzaSize.Medium => 15,
-                PizzaSize.Large => 20,
-                PizzaSize.XLarge => 25,
+                Orders.PizzaSize.Small => 10,
+                Orders.PizzaSize.Medium => 15,
+                Orders.PizzaSize.Large => 20,
+                //Orders.PizzaSize.XLarge => 25,
                 _ => 10
             };
 

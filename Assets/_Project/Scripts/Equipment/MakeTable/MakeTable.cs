@@ -160,9 +160,9 @@ namespace PizzaShop.Equipment
             }
 
             // Assign size based on configuration
-            PizzaSize size = index < tableData.SupportedSizes.Length
+            Orders.PizzaSize size = index < tableData.SupportedSizes.Length
                 ? tableData.SupportedSizes[index]
-                : PizzaSize.Large;
+                : Orders.PizzaSize.Large;
 
             zone.Initialize(new Vector2Int(x, z), size);
             assemblyZones.Add(zone);
@@ -338,7 +338,7 @@ namespace PizzaShop.Equipment
         /// <summary>
         /// Get assembly zone for specific pizza size.
         /// </summary>
-        public AssemblyZone GetAssemblyZone(PizzaSize size)
+        public AssemblyZone GetAssemblyZone(Orders.PizzaSize size)
         {
             foreach (var zone in assemblyZones)
             {

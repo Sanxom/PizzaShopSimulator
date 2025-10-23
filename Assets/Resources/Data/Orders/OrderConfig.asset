@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019b9db40a6175d469f4898f1ab1c16a, type: 3}
+  m_Name: OrderConfig
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Orders.OrderConfig
+  maxActiveOrders: 3
+  baseOrderInterval: 30
+  orderIntervalVariance: 10
+  smallPizzaTime: 120
+  mediumPizzaTime: 150
+  largePizzaTime: 180
+  smallPizzaPayment: 10
+  mediumPizzaPayment: 15
+  largePizzaPayment: 20
+  toppingPayment: 2
+  sizeWeights: []
+  sauceWeights: []
+  toppingWeights: []
+  cookLevelWeights: []
+  cheeseChance: 0.8
+  minToppings: 0
+  maxToppings: 4
+  customerNames:
+  - John
+  - Sarah
+  - Mike
+  - Emily
+  - David
+  - Lisa
+  - Tom
+  - Anna
+  - Chris
+  - Mary
+  - Jake
+  - Sophie
+  enableScaling: 1
+  scalingStartTime: 300
+  maxDifficultyTime: 1200

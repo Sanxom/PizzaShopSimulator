@@ -23,7 +23,7 @@ namespace PizzaShop.Data
 
         [Header("Assembly Zones")]
         [SerializeField] private int assemblyZoneCount = 2;
-        [SerializeField] private PizzaSize[] supportedSizes = { PizzaSize.Large };
+        [SerializeField] private Orders.PizzaSize[] supportedSizes = { Orders.PizzaSize.Large };
 
         [Header("Visual")]
         [SerializeField] private GameObject prefab;
@@ -42,7 +42,7 @@ namespace PizzaShop.Data
         public float SlotSpacing => slotSpacing;
         public Vector3 GridOffset => gridOffset;
         public int AssemblyZoneCount => assemblyZoneCount;
-        public PizzaSize[] SupportedSizes => supportedSizes;
+        public Orders.PizzaSize[] SupportedSizes => supportedSizes;
         public GameObject Prefab => prefab;
         public Sprite Icon => icon;
         public int UnlockCost => unlockCost;

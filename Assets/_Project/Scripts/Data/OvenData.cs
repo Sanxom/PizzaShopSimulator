@@ -17,7 +17,7 @@ namespace PizzaShop.Data
 
         [Header("Capacity")]
         [SerializeField] private int maxPizzas = 2;
-        [SerializeField] private PizzaSize[] supportedSizes = { PizzaSize.Small, PizzaSize.Medium, PizzaSize.Large };
+        [SerializeField] private Orders.PizzaSize[] supportedSizes = { Orders.PizzaSize.Small, Orders.PizzaSize.Medium, Orders.PizzaSize.Large };
 
         [Header("Cooking Times (seconds)")]
         [SerializeField] private CookingProfile smallPizzaProfile = new CookingProfile(30f, 45f);
@@ -44,7 +44,7 @@ namespace PizzaShop.Data
         public string DisplayName => displayName;
         public string Description => description;
         public int MaxPizzas => maxPizzas;
-        public PizzaSize[] SupportedSizes => supportedSizes;
+        public Orders.PizzaSize[] SupportedSizes => supportedSizes;
         public float CookingTemperature => cookingTemperature;
         public float HeatUpTime => heatUpTime;
         public GameObject Prefab => prefab;
@@ -57,14 +57,14 @@ namespace PizzaShop.Data
         /// <summary>
         /// Get cooking profile for specific pizza size.
         /// </summary>
-        public CookingProfile GetProfile(PizzaSize size)
+        public CookingProfile GetProfile(Orders.PizzaSize size)
         {
             return size switch
             {
-                PizzaSize.Small => smallPizzaProfile,
-                PizzaSize.Medium => mediumPizzaProfile,
-                PizzaSize.Large => largePizzaProfile,
-                PizzaSize.XLarge => xLargePizzaProfile,
+                Orders.PizzaSize.Small => smallPizzaProfile,
+                Orders.PizzaSize.Medium => mediumPizzaProfile,
+                Orders.PizzaSize.Large => largePizzaProfile,
+                //PizzaSize.XLarge => xLargePizzaProfile,
                 _ => largePizzaProfile
             };
         }
@@ -72,7 +72,7 @@ namespace PizzaShop.Data
         /// <summary>
         /// Check if oven supports pizza size.
         /// </summary>
-        public bool SupportsSize(PizzaSize size)
+        public bool SupportsSize(Orders.PizzaSize size)
         {
             foreach (var supportedSize in supportedSizes)
             {

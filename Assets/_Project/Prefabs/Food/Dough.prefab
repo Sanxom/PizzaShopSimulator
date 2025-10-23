@@ -160,7 +160,7 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   outlineWidth: 5
   itemID: dough
-  itemType: 2
+  itemType: 0
   destroyOnPickup: 1
   visualPrefab: {fileID: 0}
   destroyTime: 0.3

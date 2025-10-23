@@ -57,32 +57,32 @@ namespace PizzaShop.Core
 
         // ==================== PIZZA EVENTS ====================
         /// <summary>Fired when pizza assembly starts (dough placed).</summary>
-        public static event Action<Pizza> OnPizzaStarted;
+        public static event Action<Food.Pizza> OnPizzaStarted;
 
         /// <summary>Fired when an ingredient is added to a pizza.</summary>
-        public static event Action<Pizza, IngredientData> OnIngredientAddedToPizza;
+        public static event Action<Food.Pizza, IngredientData> OnIngredientAddedToPizza;
 
         /// <summary>Fired when a pizza is marked as complete and ready.</summary>
-        public static event Action<Pizza> OnPizzaCompleted;
+        public static event Action<Food.Pizza> OnPizzaCompleted;
 
         /// <summary>Fired when a pizza assembly is cancelled.</summary>
-        public static event Action<Pizza> OnPizzaCancelled;
+        public static event Action<Food.Pizza> OnPizzaCancelled;
 
         /// <summary>Fired when player picks up a completed pizza.</summary>
-        public static event Action<Pizza> OnPizzaPickedUp;
+        public static event Action<Food.Pizza> OnPizzaPickedUp;
 
         // ==================== COOKING EVENTS ====================
         /// <summary>Fired when a pizza is placed in an oven.</summary>
-        public static event Action<Pizza, Oven> OnPizzaPlacedInOven;
+        public static event Action<Food.Pizza, Oven> OnPizzaPlacedInOven;
 
         /// <summary>Fired when a pizza finishes cooking with quality rating.</summary>
-        public static event Action<Pizza, CookQuality> OnPizzaCooked;
+        public static event Action<Food.Pizza, CookQuality> OnPizzaCooked;
 
         /// <summary>Fired when a pizza burns from overcooking.</summary>
-        public static event Action<Pizza> OnPizzaBurnt;
+        public static event Action<Food.Pizza> OnPizzaBurnt;
 
         /// <summary>Fired when a pizza is removed from an oven.</summary>
-        public static event Action<Pizza, Oven> OnPizzaRemovedFromOven;
+        public static event Action<Food.Pizza, Oven> OnPizzaRemovedFromOven;
 
         // ==================== ECONOMY EVENTS ====================
         /// <summary>Fired when money amount changes.</summary>
@@ -209,6 +209,9 @@ namespace PizzaShop.Core
         public static void RaisePlayerInteracted()
             => SafeInvoke(OnPlayerInteracted, nameof(OnPlayerInteracted));
 
+        public static void RaiseNotificationShown(string message, NotificationType notificationType)
+            => SafeInvoke(OnNotificationShown, message, notificationType, nameof(OnNotificationShown));
+
         public static void RaiseIngredientPickedUp(IngredientData ingredient)
             => SafeInvoke(OnIngredientPickedUp, ingredient, nameof(OnIngredientPickedUp));
 
@@ -236,35 +239,47 @@ namespace PizzaShop.Core
         public static void RaiseOrderCompleted(Order order, int payment)
             => SafeInvoke(OnOrderCompleted, order, payment, nameof(OnOrderCompleted));
 
-        public static void RaisePizzaStarted(Pizza pizza)
+        public static void RaisePizzaStarted(Food.Pizza pizza)
             => SafeInvoke(OnPizzaStarted, pizza, nameof(OnPizzaStarted));
 
-        public static void RaiseIngredientAddedToPizza(Pizza pizza, IngredientData ingredient)
+        public static void RaiseIngredientAddedToPizza(Food.Pizza pizza, IngredientData ingredient)
             => SafeInvoke(OnIngredientAddedToPizza, pizza, ingredient, nameof(OnIngredientAddedToPizza));
 
-        public static void RaisePizzaBurnt(Pizza pizza)
+        public static void RaisePizzaBurnt(Food.Pizza pizza)
             => SafeInvoke(OnPizzaBurnt, pizza, nameof(OnPizzaBurnt));
 
-        public static void RaisePizzaCooked(Pizza pizza, CookQuality quality)
+        public static void RaisePizzaCooked(Food.Pizza pizza, CookQuality quality)
             => SafeInvoke(OnPizzaCooked, pizza, quality, nameof(OnPizzaCooked));
 
-        public static void RaisePizzaCancelled(Pizza pizza)
+        public static void RaisePizzaCancelled(Food.Pizza pizza)
             => SafeInvoke(OnPizzaCancelled, pizza, nameof(OnPizzaCancelled));
 
-        public static void RaisePizzaCompleted(Pizza pizza)
+        public static void RaisePizzaCompleted(Food.Pizza pizza)
             => SafeInvoke(OnPizzaCompleted, pizza, nameof(OnPizzaCompleted));
 
-        public static void RaisePizzaPickedUp(Pizza pizza)
+        public static void RaisePizzaPickedUp(Food.Pizza pizza)
             => SafeInvoke(OnPizzaPickedUp, pizza, nameof(OnPizzaPickedUp));
 
-        public static void RaisePizzaPlacedInOven(Pizza pizza, Oven oven)
+        public static void RaisePizzaPlacedInOven(Food.Pizza pizza, Oven oven)
             => SafeInvoke(OnPizzaPlacedInOven, pizza, oven, nameof(OnPizzaPlacedInOven));
 
-        public static void RaisePizzaRemovedFromOven(Pizza pizza, Oven oven)
+        public static void RaisePizzaRemovedFromOven(Food.Pizza pizza, Oven oven)
             => SafeInvoke(OnPizzaRemovedFromOven, pizza, oven, nameof(OnPizzaRemovedFromOven));
 
         public static void RaiseMoneyChanged(int oldAmount, int newAmount)
             => SafeInvoke(OnMoneyChanged, oldAmount, newAmount, nameof(OnMoneyChanged));
+
+        public static void RaiseMoneyAdded(int payment)
+            => SafeInvoke(OnMoneyAdded, payment, nameof(OnMoneyAdded));
+
+        public static void RaiseOrderTimerUpdated(Order order, float timeRemaining)
+            => SafeInvoke(OnOrderTimerUpdated, order, timeRemaining, nameof(OnOrderTimerUpdated));
+
+        public static void RaiseOrderReceived(Order newOrder)
+            => SafeInvoke(OnOrderReceived, newOrder, nameof(OnOrderReceived));
+
+        public static void RaiseOrderExpired(Order order)
+            => SafeInvoke(OnOrderExpired, order, nameof(OnOrderExpired));
 
         public static void RaiseGameStarted()
             => SafeInvoke(OnGameStarted, nameof(OnGameStarted));

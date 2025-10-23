@@ -155,10 +155,10 @@ namespace PizzaShop.Food
             // Random position on pizza surface
             float radius = pizza.Size switch
             {
-                PizzaSize.Small => 0.15f,
-                PizzaSize.Medium => 0.2f,
-                PizzaSize.Large => 0.25f,
-                PizzaSize.XLarge => 0.3f,
+                Orders.PizzaSize.Small => 0.15f,
+                Orders.PizzaSize.Medium => 0.2f,
+                Orders.PizzaSize.Large => 0.25f,
+                //PizzaSize.XLarge => 0.3f,
                 _ => 0.2f
             };
 

@@ -60,7 +60,7 @@ namespace PizzaShop.Testing
             }
 
             // Initialize as complete pizza
-            pizza.Initialize(PizzaSize.Large, null);
+            pizza.Initialize(Orders.PizzaSize.Large, null);
 
             // Simulate adding all ingredients
             // (In real game, this would be done through AssemblyZone)

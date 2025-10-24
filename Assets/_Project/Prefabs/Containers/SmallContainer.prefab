@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 96743775337422905}
   - component: {fileID: 2315395120094024014}
   - component: {fileID: 2527769994799098713}
-  - component: {fileID: 5338530628149692351}
+  - component: {fileID: 149584460258974896}
+  - component: {fileID: 1268461126540797789}
   m_Layer: 6
   m_Name: SmallContainer
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5236456085894547753}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2, y: 0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -140,7 +141,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5338530628149692351
+--- !u!114 &149584460258974896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,17 +150,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 5236456085894547753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ed1ff259d72954c8f6b74990ae4023, type: 3}
+  m_Script: {fileID: 11500000, guid: 445eaa7b673500e4f99d4807d49f19be, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Interaction.PickupableItem
-  displayName: Small Container
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Equipment.Container
+  displayName: Empty Container
   interactionType: 0
   isInteractable: 1
   useOutline: 1
-  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.29803923}
-  outlineWidth: 0.05
-  itemID: smallcontainer_01
-  itemType: 2
+  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  outlineWidth: 5
+  itemID: test_item
+  itemType: 0
   destroyOnPickup: 1
   visualPrefab: {fileID: 0}
   destroyTime: 0.3
+  containerData: {fileID: 11400000, guid: cb631c44639c9404989f833f4dcc7483, type: 2}
+  visualizer: {fileID: 1268461126540797789}
+  currentSlot: {fileID: 0}
+--- !u!114 &1268461126540797789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236456085894547753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc72cd4792f509448904317441855dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Equipment.ContainerVisualizer
+  containerRenderer: {fileID: 96743775337422905}
+  fillIndicator: {fileID: 0}
+  label: {fileID: 0}
+  emptyIndicator: {fileID: 0}
+  fillAnimationDuration: 0.3
+  fillEase: 6

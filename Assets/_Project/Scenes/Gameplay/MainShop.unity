@@ -202,11 +202,6 @@ Transform:
   - {fileID: 321338587}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &397238171 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5236456085894547753, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
-  m_PrefabInstance: {fileID: 2936380169436182087}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &409651232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,50 +1958,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6428000708801417593, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
   m_PrefabInstance: {fileID: 2936380169436182087}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &1651459709 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 96743775337422905, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
-  m_PrefabInstance: {fileID: 2936380169436182087}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1651459711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397238171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc72cd4792f509448904317441855dc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Equipment.ContainerVisualizer
-  containerRenderer: {fileID: 1651459709}
-  fillIndicator: {fileID: 0}
-  label: {fileID: 0}
-  emptyIndicator: {fileID: 0}
-  fillAnimationDuration: 0.3
-  fillEase: 6
---- !u!114 &1651459712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397238171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445eaa7b673500e4f99d4807d49f19be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Equipment.Container
-  displayName: Empty Container
-  interactionType: 0
-  isInteractable: 1
-  useOutline: 1
-  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  outlineWidth: 5
-  containerData: {fileID: 11400000, guid: cb631c44639c9404989f833f4dcc7483, type: 2}
-  visualizer: {fileID: 1651459711}
-  currentSlot: {fileID: 0}
 --- !u!1 &1694701989
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,10 +2480,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallContainer
       objectReference: {fileID: 0}
-    - target: {fileID: 5338530628149692351, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
-      propertyPath: itemType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6428000708801417593, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.79
@@ -2576,13 +2523,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5236456085894547753, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1651459712}
-    - targetCorrespondingSourceObject: {fileID: 5236456085894547753, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1651459711}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 271a40f4fc376df499e2408a57bc8613, type: 3}
 --- !u!64 &2941433709861857067
 MeshCollider:

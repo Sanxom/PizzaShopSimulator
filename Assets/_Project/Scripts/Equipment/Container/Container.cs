@@ -12,7 +12,7 @@ namespace PizzaShop.Equipment
     /// Uses State pattern for behavior, Observer pattern for communication.
     /// Follows Single Responsibility Principle - only manages container logic.
     /// </summary>
-    public class Container : InteractableBase
+    public class Container : PickupableItem
     {
         [Header("Container Configuration")]
         [SerializeField] private ContainerData containerData;

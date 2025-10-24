@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46f4ade7d3cfbab4fbff622f7372b5ed, type: 3}
-  m_Name: Dough
+  m_Name: LargeDough
   m_EditorClassIdentifier: Assembly-CSharp::PizzaShop.Data.IngredientData
-  ingredientID: dough
-  displayName: Dough
+  ingredientID: largedough
+  displayName: Large Dough
   category: 0
   ingredientColor: {r: 1, g: 1, b: 1, a: 1}
   icon: {fileID: 0}
